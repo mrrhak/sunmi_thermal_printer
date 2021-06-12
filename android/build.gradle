@@ -1,0 +1,46 @@
+group 'com.mrrhak.sunmi_thermal_printer'
+version '1.0'
+
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/repository/google' }
+        maven { url 'http://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/repository/google' }
+        maven { url 'http://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        flatDir {
+            dirs project(':sunmi_thermal_printer').file('libs')
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies{
+    implementation(name: 'payLib', ext: 'aar')
+    implementation 'com.sunmi:printerlibrary:1.0.12'
+    compileOnly(name: 'core-3.4.0', ext: 'jar')
+}
